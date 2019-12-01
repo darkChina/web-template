@@ -2,6 +2,7 @@ const gulp = require('gulp')
 const sass = require('gulp-sass')
 const browserSync = require('browser-sync')
 const uglify = require('gulp-uglify')
+const babel = require('gulp-babel')
 
 gulp.task('sass', function() {
     return (
@@ -22,6 +23,9 @@ gulp.task('html', function() {
 gulp.task('js', function() {
     return (
         gulp.src('./app/js-raw/**/*.js')
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
         .pipe(uglify())
         .pipe(gulp.dest('./app/js-dist'))
         .pipe(browserSync.reload({stream: true}))

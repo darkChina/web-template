@@ -8,7 +8,7 @@ gulp.task('sass', function() {
     return (
         gulp.src('./app/scss/**/*.scss')
         .pipe(sass({outputStyle: 'compressed'}))
-        .pipe(gulp.dest('./app/css'))
+        .pipe(gulp.dest('./app'))
         .pipe(browserSync.reload({stream: true}))
     )
 })
@@ -22,12 +22,12 @@ gulp.task('html', function() {
 
 gulp.task('js', function() {
     return (
-        gulp.src('./app/js-raw/**/*.js')
+        gulp.src('./app/js/**/*.js')
         .pipe(babel({
             presets: ['@babel/env']
         }))
         .pipe(uglify())
-        .pipe(gulp.dest('./app/js-dist'))
+        .pipe(gulp.dest('./app'))
         .pipe(browserSync.reload({stream: true}))
     )
 })
@@ -44,7 +44,7 @@ gulp.task('browser-sync', function() {
 gulp.task('watch', function() {
     gulp.watch('./app/scss/**/*.scss', gulp.parallel('sass'))
     gulp.watch('./app/*.html', gulp.parallel('html'))
-    gulp.watch('./app/js-raw/**/*.js', gulp.parallel('js'))
+    gulp.watch('./app/js/**/*.js', gulp.parallel('js'))
 })
 
 gulp.task('default', gulp.parallel('browser-sync', 'watch'))
